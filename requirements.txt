@@ -1,0 +1,13 @@
+--find-links https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+
+jax[cuda12_pip]
+flax
+brax
+scikit-learn
+statsmodels
+seaborn
+ipython
+ipykernel
+hydra-core
+wandb
+mediapy

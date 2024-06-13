@@ -1,0 +1,50 @@
+Bootstrap: docker
+From: ubuntu:22.04
+
+%help
+	Leniabreeder: Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity
+
+%environment
+	# System
+	export TZ=Europe/London
+	export OPENBLAS_NUM_THREADS=1
+
+	# Activate virtual environment permanently
+	export VIRTUAL_ENV="/venv"
+	export _OLD_VIRTUAL_PATH="$PATH"
+	export PATH="$VIRTUAL_ENV/bin:$PATH"
+
+	# Add /workspace/src/ to PYTHONPATH
+	export PYTHONPATH="/workspace/src"
+
+%post
+	echo "export WANDB_API_KEY=$WANDB_API_KEY" >> $APPTAINER_ENVIRONMENT
+	export DEBIAN_FRONTEND=noninteractive
+
+	# Update and install required libraries
+	apt update
+	apt install -y wget git software-properties-common ffmpeg
+
+	# Install Python
+	add-apt-repository ppa:deadsnakes/ppa
+	apt install -y python3.11 python3.11-venv
+
+	# Create a virtual environment
+	python3.11 -m venv /venv
+	. /venv/bin/activate
+	python -m ensurepip
+	pip install --upgrade pip
+
+	# Set up workspace
+	mkdir /workspace/ && cd /workspace/
+
+	# Clone repository to /src/
+	git clone https://{{ github_user }}:{{ github_token }}@github.com/maxencefaldor/Leniabreeder.git src/ && cd src/
+	git checkout {{ commit }}
+
+	# Install requirements
+	pip install -r requirements.txt
+
+%runscript
+	# Run main
+	python /workspace/src/main.py "$@"

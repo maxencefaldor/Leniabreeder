@@ -1,0 +1,81 @@
+job_name: pos_mass_var
+
+walltime: 7:59:00
+
+nnodes: 1
+ncpus: 4
+mem: 16gb
+ngpus: 1
+gpu_type: RTX6000
+
+queue: null  # -q express -P exp-00097
+njobs: 5
+args:
+  # # AURORA
+  # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_mass_var"
+  # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_mass_avg"
+  # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=pos_linear_velocity_avg"
+  # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_angle_var"
+
+  # # MAP-Elites
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_linear_velocity_avg,pos_mass_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[0.5,16.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_mass_avg,pos_linear_velocity_avg] qd.descriptor_min=[0.,0.] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_mass_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[8.,0.5] qd.mass_threshold=8."
+
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.]"
+
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angle_avg] qd.descriptor_min=[0.,-1.] qd.descriptor_max=[0.5,1.] qd.mass_threshold=8."
+
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5]"
+
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+  # # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_linear_velocity_avg,pos_angular_velocity_avg] qd.descriptor_min=[0.,-0.5] qd.descriptor_max=[0.5,0.5] qd.mass_threshold=8."
+
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_avg qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_avg qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_mass_var qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_mass_var qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=neg_angle_var qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_linear_velocity_avg qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"
+  # - "seed=\$RANDOM qd=me qd.n_generations=4000 qd.fitness=pos_angular_velocity_avg qd.descriptor=[pos_color_avg] qd.descriptor_min=[0.,0.,0.] qd.descriptor_max=[1.,1.,1.]"

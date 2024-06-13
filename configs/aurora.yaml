@@ -1,0 +1,28 @@
+hydra:
+  job:
+    chdir: True
+  run:
+    dir: ./output/${qd.algo}/${qd.fitness}/${now:%Y-%m-%d_%H%M%S_%f}
+
+defaults:
+  - _self_
+  - qd: aurora
+
+seed: 0
+
+# Init pattern
+pattern_id: "5N7KKM"
+
+# Simulation
+world_size: 128
+world_scale: 1
+n_step: 200
+
+# Genotype
+n_params_size: 3
+n_cells_size: 32
+
+# Phenotype
+phenotype_size: 32
+center_phenotype: True
+record_phenotype: True
