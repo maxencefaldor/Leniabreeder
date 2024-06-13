@@ -68,7 +68,9 @@ python main.py seed=$RANDOM qd=me qd.n_generations=4_000 qd.repertoire_size=32_0
 
 ## Analyze Experiments
 
-Running an experiment (see previous section) creates a directory in the `output/` directory. To analyze the results, you can use run the script in the `analysis` directory or run the notebooks.
+When you run an experiment, a directory is created in `output/`. To analyze the results, you can either run a script from the `analysis/` directory or use the notebooks from the `notebooks/`directory. Don't forget to change `run_dir` to the path of your experiment.
+
+For MAP-Elites, you can use `analysis/visualize_me.py` or [`notebooks/visualize_me.ipynb`](https://github.com/maxencefaldor/Leniabreeder/blob/main/notebooks/visualize_me.ipynb). For AURORA, you can use `analysis/visualize_aurora.py` or [`notebooks/visualize_aurora.ipynb`](https://github.com/maxencefaldor/Leniabreeder/blob/main/notebooks/visualize_aurora.ipynb).
 
 ## BibTeX
 
