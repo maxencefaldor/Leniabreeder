@@ -20,8 +20,6 @@ pip install -r requirements.txt
 
 ```bash
 apptainer build \
-	--build-arg github_user=$GITHUB_USER \
-	--build-arg github_token=$GITHUB_TOKEN \
 	--fakeroot \
 	--force \
 	--warn-unused-build-args \

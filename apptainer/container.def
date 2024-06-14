@@ -39,8 +39,7 @@ From: ubuntu:22.04
 	mkdir /workspace/ && cd /workspace/
 
 	# Clone repository to /src/
-	git clone https://{{ github_user }}:{{ github_token }}@github.com/maxencefaldor/Leniabreeder.git src/ && cd src/
-	git checkout {{ commit }}
+	git clone https://github.com/maxencefaldor/Leniabreeder.git src/ && cd src/
 
 	# Install requirements
 	pip install -r requirements.txt
