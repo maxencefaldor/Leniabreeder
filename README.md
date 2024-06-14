@@ -10,6 +10,7 @@ git clone https://github.com/maxencefaldor/Leniabreeder.git && cd Leniabreeder
 
 ### Using virtual environment
 
+At the root of the repository, execute:
 ```bash
 python -m venv venv
 source venv/bin/activate
@@ -18,6 +19,7 @@ pip install -r requirements.txt
 
 ### Using container
 
+At the root of the repository, execute:
 ```bash
 apptainer build \
 	--fakeroot \
