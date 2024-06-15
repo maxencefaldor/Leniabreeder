@@ -78,7 +78,7 @@ For MAP-Elites, you can use `analysis/visualize_me.py` or [`notebooks/visualize_
 @article{faldor2024leniabreeder,
 	author    = {Faldor, Maxence and Cully, Antoine},
 	title     = {Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity},
-	journal   = {ALIFE},
+	journal   = {Artificial Life},
 	year      = {2024},
 }
 ```
