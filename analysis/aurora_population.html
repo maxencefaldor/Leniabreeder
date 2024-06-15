@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>AURORA population neg_angle_var</title>
+
+	<title>AURORA population</title>
+
 	<style>
 		body { margin: 0; overflow: hidden; }
 		video {
@@ -50,6 +52,38 @@
 			cursor: pointer;
 			display: none;
 		}
+		#popupMessage {
+			position: fixed;
+			bottom: 40px;
+			right: 20px;
+			z-index: 1100;
+			display: flex;
+			align-items: flex-end;
+			justify-content: flex-end;
+			overflow: hidden;
+		}
+		.popup-card {
+			background: #4caf50;
+			color: #333;
+			padding: 20px 25px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+			font-size: 16px;
+			font-family: 'Arial', sans-serif;
+			transform: translateY(100%);
+			transition: transform 1s ease-in-out;
+		}
+		.popup-hidden .popup-card {
+			transform: translateY(150%);
+		}
+		.popup-visible .popup-card {
+			transform: translateY(0);
+		}
+		@media only screen and (max-width: 768px) {
+			#popupMessage {
+				display: none;
+			}
+		}
 	</style>
 
 	<script type="importmap">
@@ -60,6 +94,8 @@
 			}
 		}
 	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip-utils/0.1.0/jszip-utils.min.js"></script>
 </head>
 
 <body>
@@ -67,6 +103,11 @@
 		<div id="progressBarContainer">
 			<div id="progressBar"></div>
 		</div>
+	</div>
+	<div id="popupMessage" class="popup-hidden">
+	  <div class="popup-card">
+	    Double click on soliton to observe its behavior
+	  </div>
 	</div>
 	<video id="hoverVideo" loop></video>
 	<button id="iframeButton" onclick="buttonAction()">Fullscreen</button>
@@ -105,43 +146,73 @@
 		async function loadPoints() {
 			const response = await fetch('descriptors_3d.json');
 			const pointsData = await response.json();
-			const loader = new THREE.TextureLoader();
 			const progressBar = document.getElementById('progressBar');
-			const totalImages = pointsData.length;
-			let loadedImages = 0;
 
-			const textures = await Promise.all(pointsData.map((_, i) => new Promise((resolve, reject) => {
-				loader.load(`./phenotype_medium/${i.toString().padStart(4, '0')}.png`, (texture) => {
-					const canvas = document.createElement('canvas');
-					const context = canvas.getContext('2d');
-					canvas.width = texture.image.width;
-					canvas.height = texture.image.height;
-					context.drawImage(texture.image, 0, 0);
+			// Fetch the zip file
+			JSZipUtils.getBinaryContent('phenotype_medium/phenotypes.zip', function (err, data) {
+				if (err) {
+					throw err;
+				}
 
-					const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-					const data = imageData.data;
+				// Load the zip file
+				JSZip.loadAsync(data).then(function (zip) {
+					const totalImages = pointsData.length;
+					let loadedImages = 0;
 
-					for (let j = 0; j < data.length; j += 4) {
-						if (data[j] === 0 && data[j + 1] === 0 && data[j + 2] === 0) {
-							data[j + 3] = 0; // Set alpha to 0 for black pixels
-						}
-					}
+					const texturePromises = pointsData.map((_, i) => {
+						const imageName = `${i.toString().padStart(4, '0')}.png`;
+						return zip.file(`phenotype_medium/${imageName}`).async('blob').then((blob) => {
+							return new Promise((resolve) => {
+								const img = new Image();
+								img.src = URL.createObjectURL(blob);
+								img.onload = () => {
+									const canvas = document.createElement('canvas');
+									const context = canvas.getContext('2d');
+									canvas.width = img.width;
+									canvas.height = img.height;
+									context.drawImage(img, 0, 0);
 
-					context.putImageData(imageData, 0, 0);
-					const processedTexture = new THREE.CanvasTexture(canvas);
-					loadedImages++;
-					progressBar.style.width = `${(loadedImages / totalImages) * 100}%`;
-					resolve(processedTexture);
-				}, undefined, reject);
-			})));
+									const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+									const data = imageData.data;
 
-			textures.forEach((texture, i) => {
-				const plane = createPlane(texture, pointsData[i], `./video/${i.toString().padStart(4, '0')}.mp4`);
-				planes.push(plane);
-				scene.add(plane);
+									for (let j = 0; j < data.length; j += 4) {
+										if (data[j] === 0 && data[j + 1] === 0 && data[j + 2] === 0) {
+											data[j + 3] = 0; // Set alpha to 0 for black pixels
+										}
+									}
+
+									context.putImageData(imageData, 0, 0);
+									const processedTexture = new THREE.CanvasTexture(canvas);
+									loadedImages++;
+									progressBar.style.width = `${(loadedImages / totalImages) * 100}%`;
+									resolve(processedTexture);
+								};
+							});
+						});
+					});
+
+					Promise.all(texturePromises).then((textures) => {
+						textures.forEach((texture, i) => {
+							const plane = createPlane(texture, pointsData[i], `./video/${i.toString().padStart(4, '0')}.mp4`);
+							planes.push(plane);
+							scene.add(plane);
+						});
+
+						document.getElementById('loadingScreen').style.display = 'none'; // Hide the loading screen
+
+						// Show the popup message after 2 seconds
+						setTimeout(() => {
+							const popupMessage = document.getElementById('popupMessage');
+							popupMessage.classList.remove('popup-hidden');
+							popupMessage.classList.add('popup-visible');
+							setTimeout(() => {
+								popupMessage.classList.remove('popup-visible');
+								popupMessage.classList.add('popup-hidden');
+							}, 5000); // Hide after 5 seconds
+						}, 1000); // Wait for 2 seconds before showing the popup
+					});
+				});
 			});
-
-			document.getElementById('loadingScreen').style.display = 'none'; // Hide the loading screen
 		}
 
 		loadPoints();
