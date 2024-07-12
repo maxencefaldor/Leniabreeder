@@ -18,8 +18,10 @@ From: ubuntu:22.04
 	export PYTHONPATH="/workspace/src"
 
 %post
-	echo "export WANDB_API_KEY=$WANDB_API_KEY" >> $APPTAINER_ENVIRONMENT
 	export DEBIAN_FRONTEND=noninteractive
+
+	# Export environment variables permanently
+	echo "export WANDB_API_KEY=$WANDB_API_KEY" >> $APPTAINER_ENVIRONMENT
 
 	# Update and install required libraries
 	apt update
@@ -35,15 +37,12 @@ From: ubuntu:22.04
 	python -m ensurepip
 	pip install --upgrade pip
 
-	# Set up workspace
-	mkdir /workspace/ && cd /workspace/
-
 	# Clone repository to /src/
-	git clone https://github.com/maxencefaldor/Leniabreeder.git src/ && cd src/
+	git clone https://github.com/maxencefaldor/Leniabreeder.git /src/ && cd /src/
 
 	# Install requirements
 	pip install -r requirements.txt
 
 %runscript
 	# Run main
-	python /workspace/src/main.py "$@"
+	python /src/main.py "$@"

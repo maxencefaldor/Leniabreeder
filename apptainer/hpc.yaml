@@ -1,6 +1,9 @@
-job_name: pos_mass_var
+hpc: login.hpc.imperial.ac.uk
+queue: null  # -q express -P exp-00097
 
-walltime: 7:59:00
+job_name: Leniabreeder
+
+walltime: 0:59:00
 
 nnodes: 1
 ncpus: 4
@@ -8,8 +11,7 @@ mem: 16gb
 ngpus: 1
 gpu_type: RTX6000
 
-queue: null  # -q express -P exp-00097
-njobs: 5
+njobs: 1
 args:
   # # AURORA
   # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_mass_var"
