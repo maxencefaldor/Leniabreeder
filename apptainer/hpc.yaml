@@ -1,20 +1,14 @@
 hpc: login.hpc.imperial.ac.uk
-queue: null  # -q express -P exp-00097
 
 job_name: Leniabreeder
+walltime: 00:59:00
+resources: select=1:ncpus=4:mem=16gb:ngpus=1:gpu_type=RTX6000
+job_array: 1-2  # null
+kwargs: null  # -q express -P exp-00097
 
-walltime: 0:59:00
-
-nnodes: 1
-ncpus: 4
-mem: 16gb
-ngpus: 1
-gpu_type: RTX6000
-
-njobs: 1
 args:
   # # AURORA
-  # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_mass_var"
+  - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_mass_var"
   # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_mass_avg"
   # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=pos_linear_velocity_avg"
   # - "seed=\$RANDOM qd=aurora qd.n_generations=4000 qd.repertoire_size=2048 qd.fitness=neg_angle_var"
