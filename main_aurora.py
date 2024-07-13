@@ -68,7 +68,10 @@ def main(config: DictConfig) -> None:
 		transition_steps=config.qd.lr_transition_steps,
 		transition_begin=config.qd.lr_transition_begin,
 	)
-	tx = optax.adam(learning_rate_fn)
+	tx = optax.chain(
+		optax.clip_by_global_norm(1.0),
+		optax.adam(learning_rate_fn),
+	)
 	train_state = TrainState.create(apply_fn=vae.apply, params=params, tx=tx)
 
 	# Define the scoring function
@@ -165,12 +168,12 @@ def main(config: DictConfig) -> None:
 			logits, mean, logvar = train_state.apply_fn(params, batch, key)
 			return loss_vae(logits, batch, mean, logvar)
 
-		loss, grads = jax.value_and_grad(loss_fn)(train_state.params)
+		(loss, aux), grads = jax.value_and_grad(loss_fn, has_aux=True)(train_state.params)
 		train_state = train_state.apply_gradients(grads=grads)
 
 		learning_rate = learning_rate_fn(train_state.step)
 
-		return train_state, {"loss": loss, "learning_rate": learning_rate}
+		return train_state, {**aux, "learning_rate": learning_rate}
 
 	def train_epoch(train_state, repertoire, key):
 		steps_per_epoch = repertoire.size // config.qd.ae_batch_size
@@ -238,7 +241,7 @@ def main(config: DictConfig) -> None:
 		key,
 	)
 
-	metrics = dict.fromkeys(["generation", "qd_score", "coverage", "max_fitness", "loss", "learning_rate", "n_elites", "variance", "time"], jnp.array([]))
+	metrics = dict.fromkeys(["generation", "qd_score", "coverage", "max_fitness", "loss", "recon_loss", "kld_loss", "learning_rate", "n_elites", "variance", "time"], jnp.array([]))
 	csv_logger = CSVLogger("./log.csv", header=list(metrics.keys()))
 
 	# Main loop
