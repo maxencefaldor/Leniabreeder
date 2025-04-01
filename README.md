@@ -75,10 +75,16 @@ For MAP-Elites, you can use `analysis/visualize_me.py` or [`notebooks/visualize_
 ## BibTeX
 
 ```
-@article{faldor2024leniabreeder,
-	author    = {Faldor, Maxence and Cully, Antoine},
-	title     = {Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity},
-	journal   = {Artificial Life},
-	year      = {2024},
+@proceedings{10.1162/isal_a_00827,
+	author = {Faldor, Maxence and Cully, Antoine},
+	title = {Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity},
+	volume = {ALIFE 2024: Proceedings of the 2024 Artificial Life Conference},
+	series = {Artificial Life Conference Proceedings},
+	pages = {85},
+	year = {2024},
+	month = {07},
+	doi = {10.1162/isal_a_00827},
+	url = {https://doi.org/10.1162/isal\_a\_00827},
+	eprint = {https://direct.mit.edu/isal/proceedings-pdf/isal2024/36/85/2461065/isal\_a\_00827.pdf},
 }
 ```
