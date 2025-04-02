@@ -75,7 +75,7 @@ For MAP-Elites, you can use `analysis/visualize_me.py` or [`notebooks/visualize_
 ## BibTeX
 
 ```
-@proceedings{10.1162/isal_a_00827,
+@proceedings{leniabreeder,
 	author = {Faldor, Maxence and Cully, Antoine},
 	title = {Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity},
 	volume = {ALIFE 2024: Proceedings of the 2024 Artificial Life Conference},
