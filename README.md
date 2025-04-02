@@ -1,6 +1,10 @@
 # Leniabreeder
 
-Repository for "Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity" (ALIFE 2024).
+[![Website](https://img.shields.io/badge/website-000000?style=for-the-badge&logoColor=white&style=flat)](https://leniabreeder.github.io/)
+[![Paper](http://img.shields.io/badge/paper-arxiv.2502.02190-B31B1B.svg)](https://arxiv.org/abs/2406.04235)
+[![X](https://img.shields.io/badge/X-%23000000.svg?style=for-the-badge&logo=X&logoColor=white&style=flat)](https://x.com/maxencefaldor/status/1803803486179434642)
+
+Repository for **Toward Artificial Open-Ended Evolution within Lenia using Quality-Diversity** (ALIFE 2024).
 
 ## Installation
 
